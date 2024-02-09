@@ -30,6 +30,4 @@ To run the Poker Probability Calculator, follow these steps:
 
 ## Credits
 
-This project was developed by [Your Name].
-
-If you have any questions or suggestions, feel free to contact [Your Email].
+This project was developed by Ryan Helou.
