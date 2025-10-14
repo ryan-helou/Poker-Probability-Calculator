@@ -1,7 +1,9 @@
+
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 public class Round {
+
     public static ArrayList<Player> playerArrayList = new ArrayList<>();
     public static int[][] combosArray = new int[21][5];
     static Player tempPlayer;
@@ -64,7 +66,6 @@ public class Round {
         }
     }
 
-
     public static void showPlayersHands() {
         for (int i = 0; i < playerArrayList.size(); i++) {
             System.out.print("Player " + (i + 1) + ": " + playerArrayList.get(i).holeCard1 + " ");
@@ -106,12 +107,11 @@ public class Round {
     }
 
     public static void simulateMultipleRounds(int value1, String suit1, int value2,
-                                              String suit2, int players, int iterations) {
-        if(value1 == value2 && suit1.equalsIgnoreCase(suit2)){
+            String suit2, int players, int iterations) {
+        if (value1 == value2 && suit1.equalsIgnoreCase(suit2)) {
             System.out.println("SAME CARDS");
             return;
-        }
-        else if(value1 < 2 || value1 > 14 || value2 < 2 || value2 > 14){
+        } else if (value1 < 2 || value1 > 14 || value2 < 2 || value2 > 14) {
             System.out.println("INVALID CARDS");
             return;
         }
@@ -121,8 +121,8 @@ public class Round {
         int lossCounter = 0;
         Card tempCard1 = new Card(value1, Card.suitsArray[suitToNumber(suit1)]);
         Card tempCard2 = new Card(value2, Card.suitsArray[suitToNumber(suit2)]);
-        System.out.println("The chances of the outcomes with the cards " + tempCard1 + " and " + tempCard2 + " as "+ players + " players is the following: ");
-        for(int z = 0; z < iterations; z++){
+        System.out.println("The chances of the outcomes with the cards " + tempCard1 + " and " + tempCard2 + " as " + players + " players is the following: ");
+        for (int z = 0; z < iterations; z++) {
 
             Deck.makeDeck();
             createPlayers(players);
@@ -154,13 +154,88 @@ public class Round {
             }
 
         }
-        float winPercentage = (winCounter)*100f/(iterations);
-        float lossPercentage = (lossCounter)*100f/(iterations);
-        float tiePercentage = (tieCounter)*100f/(iterations);
+        float winPercentage = (winCounter) * 100f / (iterations);
+        float lossPercentage = (lossCounter) * 100f / (iterations);
+        float tiePercentage = (tieCounter) * 100f / (iterations);
 
-        System.out.println("Wins: " +winPercentage+ "%");
-        System.out.println("Losses: "+lossPercentage + "%");
-        System.out.println("Ties: "+tiePercentage + "%");
+        System.out.println("Wins: " + winPercentage + "%");
+        System.out.println("Losses: " + lossPercentage + "%");
+        System.out.println("Ties: " + tiePercentage + "%");
 
     }
+
+    public static OddsResult calculateOdds(
+            int value1, String suit1,
+            int value2, String suit2,
+            int players, int iterations) {
+
+        // Basic validation (mirror your simulateMultipleRounds guards)
+        if (value1 == value2 && suit1.equalsIgnoreCase(suit2)) {
+            // same exact card requested
+            return new OddsResult(0f, 0f, 0f);
+        }
+        if (value1 < 2 || value1 > 14 || value2 < 2 || value2 > 14) {
+            // invalid rank(s)
+            return new OddsResult(0f, 0f, 0f);
+        }
+
+        int tieCounter = 0;
+        int winCounter = 0;
+        int lossCounter = 0;
+
+        // Prepare fixed "hero" cards once
+        Card tempCard1 = new Card(value1, Card.suitsArray[suitToNumber(suit1)]);
+        Card tempCard2 = new Card(value2, Card.suitsArray[suitToNumber(suit2)]);
+
+        for (int z = 0; z < iterations; z++) {
+
+            // Fresh deck and players each iteration (same as your simulateMultipleRounds)
+            Deck.makeDeck();
+            createPlayers(players);
+
+            // Compute indices for hero cards *in the full fresh deck*
+            int index1 = cardToIndex(value1, suitToNumber(suit1));
+            int index2 = cardToIndex(value2, suitToNumber(suit2));
+
+            // IMPORTANT: remove by descending index to avoid shift bugs
+            int hi = Math.max(index1, index2);
+            int lo = Math.min(index1, index2);
+            Deck.deckOfCards.remove(hi);
+            Deck.deckOfCards.remove(lo);
+
+            // Deal everyone, then overwrite Player 1 with fixed hero cards
+            dealCardsToPlayers();
+            playerArrayList.get(0).holeCard1 = tempCard1;
+            playerArrayList.get(0).holeCard2 = tempCard2;
+
+            // Deal board + score
+            dealCommonCards();
+            PokerUtility.buildCombosArray();
+
+            double bestScore = 0;
+            double playerOneScore = PokerUtility.getScoreForPlayer(playerArrayList.get(0));
+
+            for (int j = 1; j < players; j++) {
+                double tempScore = PokerUtility.getScoreForPlayer(playerArrayList.get(j));
+                if (tempScore > bestScore) {
+                    bestScore = tempScore;
+                }
+            }
+
+            if (playerOneScore > bestScore) {
+                winCounter++;
+            } else if (playerOneScore < bestScore) {
+                lossCounter++;
+            } else {
+                tieCounter++;
+            }
+        }
+
+        float winPercentage = winCounter * 100f / iterations;
+        float lossPercentage = lossCounter * 100f / iterations;
+        float tiePercentage = tieCounter * 100f / iterations;
+
+        return new OddsResult(winPercentage, tiePercentage, lossPercentage);
+    }
+
 }
