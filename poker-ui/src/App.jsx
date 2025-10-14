@@ -1,11 +1,10 @@
 import { useState } from "react";
 import "./App.css";
-import Silk from "./silk";
 
 export default function App() {
-  const [value1, setValue1] = useState(14); // Ace
+  const [value1, setValue1] = useState(14);
   const [suit1, setSuit1] = useState("Spades");
-  const [value2, setValue2] = useState(13); // King
+  const [value2, setValue2] = useState(13);
   const [suit2, setSuit2] = useState("Spades");
   const [players, setPlayers] = useState(4);
   const [iterations, setIterations] = useState(50000);
@@ -96,15 +95,7 @@ export default function App() {
 
   return (
     <>
-      <div className="silk-background">
-        <Silk
-          speed={3}
-          scale={1.2}
-          color="#1e3a8a"
-          noiseIntensity={1.5}
-          rotation={0}
-        />
-      </div>
+      <div className="animated-background"></div>
 
       <div className="container">
         <h1>♠ Poker Odds Calculator ♥</h1>
