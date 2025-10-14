@@ -183,7 +183,7 @@ public class Round {
         int winCounter = 0;
         int lossCounter = 0;
 
-        // Prepare fixed "hero" cards once
+        // Prepare fixed “hero” cards once
         Card tempCard1 = new Card(value1, Card.suitsArray[suitToNumber(suit1)]);
         Card tempCard2 = new Card(value2, Card.suitsArray[suitToNumber(suit2)]);
 
