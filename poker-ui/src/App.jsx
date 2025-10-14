@@ -95,8 +95,6 @@ export default function App() {
 
   return (
     <>
-      <div className="animated-background"></div>
-
       <div className="container">
         <h1>♠ Poker Odds Calculator ♥</h1>
 
