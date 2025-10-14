@@ -76,16 +76,22 @@ export default function App() {
   const Card = ({ value, suit }) => (
     <div className="card">
       <div className="card-corner top-left">
-        <div className="card-value">{getDisplayValue(value)}</div>
+        <div className="card-value" style={{ color: suitColors[suit] }}>
+          {getDisplayValue(value)}
+        </div>
         <div className="card-suit" style={{ color: suitColors[suit] }}>
           {suitSymbols[suit]}
         </div>
       </div>
+
       <div className="card-center" style={{ color: suitColors[suit] }}>
         {suitSymbols[suit]}
       </div>
+
       <div className="card-corner bottom-right">
-        <div className="card-value">{getDisplayValue(value)}</div>
+        <div className="card-value" style={{ color: suitColors[suit] }}>
+          {getDisplayValue(value)}
+        </div>
         <div className="card-suit" style={{ color: suitColors[suit] }}>
           {suitSymbols[suit]}
         </div>
