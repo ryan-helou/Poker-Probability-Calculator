@@ -1,101 +1,36 @@
+/* ================================
+   FONTS
+   ================================ */
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@600;700;800&display=swap');
-.card-suit, .card-center { font-family: "IM Fell English SC", serif; }
 
-/* --- CARD FRAME: Bicycle-like proportions, border, corners --- */
-.card {
-  /* 2.5" x 3.5" aspect ≈ 1 : 1.4 */
-  width: 140px;
-  height: 196px;
-  background: #fff;
-  border: 2px solid #111;
-  border-radius: 12px;
-  box-shadow:
-    0 2px 6px rgba(0,0,0,0.25),
-    0 1px 0 rgba(255,255,255,0.6) inset;
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin: 8px;
-  /* subtle paper texture */
-  background-image:
-    radial-gradient(100% 60% at 50% 40%, rgba(0,0,0,0.025), transparent 60%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0 0 0 0.05 0.08 0.1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E");
-  background-blend-mode: multiply, normal;
-}
-
-/* Corner index blocks (top-left & bottom-right) */
-.card-corner {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  letter-spacing: 0.01em;
-  line-height: 1;
-}
-
-.card-corner.top-left {
-  top: 6px;
-  left: 7px;
-}
-
-.card-corner.bottom-right {
-  bottom: 6px;
-  right: 7px;
-  transform: rotate(180deg); /* classic mirrored index */
-}
-
-/* Rank (A,K,Q,J,10…) — tall, high-contrast serif */
-.card-value {
-  font-family: "Roboto Slab", Georgia, serif;
-  font-weight: 700;
-  font-size: 30px;       /* tweak per your card size */
-  line-height: 1;
-  margin-bottom: 2px;
-  /* color comes inline from your React (suitColors) */
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-
-/* Suit glyph in the index block */
-.card-suit {
-  font-family: "Roboto Slab", Georgia, serif;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 1;
-  margin-top: 1px;
-  /* color comes inline from your React (suitColors) */
-}
-
-/* Center pip — slightly smaller than many mockups to feel authentic */
-.card-center {
-  font-family: "Roboto Slab", Georgia, serif;
-  font-weight: 700;
-  font-size: 40px;       /* adjust if you prefer larger */
-  line-height: 1;
-  /* color comes inline from your React (suitColors) */
-}
-
-/* Optional: make red closer to Bicycle's deep red */
-:root {
-  --bicycle-red: #C8102E;  /* feel free to use this instead of your current red */
-}
-
-/* If you want to switch your red globally without changing JSX:
-   .card .card-value, .card .card-suit, .card .card-center { color: var(--bicycle-red); }
-   But you're already setting color inline based on suit — which is great.
+/* Optional alternate vibe for suits/center:
+   Uncomment if you want a slight old-style flair
+   (then also change .card-value/.card-suit/.card-center families below)
 */
+/* @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap'); */
 
+
+/* ================================
+   THEME TOKENS
+   ================================ */
+:root {
+  --red:   #C8102E;  /* Bicycle-like deep red */
+  --black: #0A0A0A;  /* App black */
+  --ink:   #111111;  /* Card border ink */
+  --text:  #EDEDED;  /* Light text on dark */
+}
+
+/* ================================
+   GLOBAL
+   ================================ */
 html, body, #root { height: 100%; }
+
 body {
   margin: 0;
-  /* soft gradient */
   background:
-    radial-gradient(1200px 800px at 20% 0%, #1f2937 0%, #0f172a 60%, #0b1020 100%),
-    /* subtle noise (SVG) */
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0 0 0 0.05 0.08 0.1'%3E%3C/feFuncA%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-blend-mode: screen, normal;
-  background-attachment: fixed;
+    radial-gradient(1200px 800px at 20% 0%, #0c0c0c 0%, #090909 60%, #070707 100%);
+  color: var(--text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
 }
 
 .container {
@@ -106,14 +41,27 @@ body {
   z-index: 1;
 }
 
+/* ================================
+   HEADINGS
+   ================================ */
 h1 {
   text-align: center;
-  color: white;
+  color: var(--red);
   font-size: 3rem;
   margin-bottom: 3rem;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
 }
 
+h2 {
+  color: var(--red);
+  margin-top: 0;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* ================================
+   CARDS LAYOUT + INTERACTION
+   ================================ */
 .cards-display {
   display: flex;
   justify-content: center;
@@ -123,64 +71,112 @@ h1 {
 }
 
 .card {
+  /* 2.5" x 3.5" ratio ≈ 1 : 1.4 */
   width: 140px;
-  height: 200px;
-  background: white;
+  height: 196px;
+
+  /* White face allowed for authenticity */
+  background: #ffffff;
+  border: 2px solid var(--ink);
   border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.3),
+    0 1px 0 rgba(255, 255, 255, 0.6) inset;
+
   position: relative;
-  transition: transform 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 8px;
+  transition: transform 0.3s ease, box-shadow 0.2s ease;
+  overflow: hidden;
 }
 
 .card:hover {
   transform: translateY(-10px) rotateY(5deg);
+  box-shadow:
+    0 14px 40px rgba(0, 0, 0, 0.45),
+    0 2px 0 rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 #fff;
 }
 
+/* Corner index blocks (top-left & bottom-right) */
 .card-corner {
   position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-weight: bold;
-  padding: 8px;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  padding: 6px;
 }
 
-.top-left {
-  top: 0;
-  left: 0;
+.card-corner.top-left {
+  top: 6px;
+  left: 7px;
 }
 
-.bottom-right {
-  bottom: 0;
-  right: 0;
-  transform: rotate(180deg);
+.card-corner.bottom-right {
+  bottom: 6px;
+  right: 7px;
+  transform: rotate(180deg); /* mirrored index */
 }
 
+/* Rank (A,K,Q,J,10…) – bold slab */
 .card-value {
-  font-size: 1.5rem;
+  font-family: "Roboto Slab", Georgia, serif; /* or "IM Fell English SC", serif */
+  font-weight: 800;
+  font-size: 22px; /* tuned for 140x196 card */
+  line-height: 1;
+  margin-bottom: 2px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Suit glyphs (index + center) */
+.card-suit,
+.card-center {
+  font-family: "Roboto Slab", Georgia, serif; /* or "IM Fell English SC", serif */
+  font-weight: 700;
   line-height: 1;
 }
 
+/* Corner suit size */
 .card-suit {
-  font-size: 1.5rem;
-  line-height: 1;
+  font-size: 16px;
+  margin-top: 1px;
 }
 
+/* Center pip */
 .card-center {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 4rem;
+  font-size: 40px;
 }
 
+/* Optional faint watermark behind pip (kept minimal to avoid extra colors) */
+.card .card-watermark {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  font-size: 120px;
+  opacity: .05;
+  pointer-events: none;
+}
+
+/* ================================
+   CONTROLS (black & red only)
+   ================================ */
 .controls {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px solid var(--red);
   border-radius: 16px;
   padding: 2rem;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
   margin-bottom: 2rem;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(6px);
 }
 
 .control-grid {
@@ -196,45 +192,52 @@ h1 {
 }
 
 label {
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 0.5rem;
-  color: #1e293b;
-  font-size: 0.9rem;
+  color: var(--red);
+  font-size: 0.95rem;
 }
 
 select,
 input {
   padding: 0.75rem;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #1a1a1a;
   border-radius: 8px;
   font-size: 1rem;
-  transition: border-color 0.2s;
-  background: white;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background: #0f0f0f;
+  color: var(--text);
 }
 
 select:focus,
 input:focus {
   outline: none;
-  border-color: #3b82f6;
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px rgba(200, 16, 46, 0.25);
 }
 
+/* ================================
+   BUTTON (red only)
+   ================================ */
 .calc-button {
   width: 100%;
   padding: 1rem;
-  background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
-  color: white;
+  background: linear-gradient(180deg, #E01C35, var(--red));
+  color: #1b0106;  /* deep red-black for contrast */
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   font-size: 1.1rem;
-  font-weight: 600;
+  font-weight: 800;
+  letter-spacing: .02em;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+  box-shadow: 0 6px 18px rgba(200, 16, 46, 0.35), 0 2px 0 rgba(0, 0, 0, 0.25);
 }
 
 .calc-button:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
+  transform: translateY(-1px);
+  filter: brightness(1.03);
+  box-shadow: 0 8px 22px rgba(200, 16, 46, 0.5), 0 2px 0 rgba(0, 0, 0, 0.28);
 }
 
 .calc-button:disabled {
@@ -242,27 +245,33 @@ input:focus {
   cursor: not-allowed;
 }
 
+/* ================================
+   ERROR
+   ================================ */
 .error {
-  background: #fee;
-  color: #c00;
+  background: rgba(200, 16, 46, 0.1);
+  color: var(--red);
+  border: 1px solid var(--red);
   padding: 1rem;
   border-radius: 8px;
   margin-top: 1rem;
   text-align: center;
 }
 
+/* ================================
+   RESULTS (black & red only)
+   ================================ */
 .results {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px solid var(--red);
   border-radius: 16px;
   padding: 2rem;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(6px);
 }
 
 .results h2 {
   margin-top: 0;
-  color: #1e293b;
-  text-align: center;
   margin-bottom: 1.5rem;
 }
 
@@ -282,21 +291,23 @@ input:focus {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .result-label {
   font-size: 1.1rem;
-  color: #1e293b;
+  color: var(--text);
 }
 
 .result-value {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
+  color: var(--red);
 }
 
 .result-bar-bg {
   height: 40px;
-  background: #f1f5f9;
+  background: #0f0f0f; /* black track */
+  border: 1px solid #191919;
   border-radius: 8px;
   overflow: hidden;
   position: relative;
@@ -309,41 +320,45 @@ input:focus {
   align-items: center;
   justify-content: flex-end;
   padding-right: 1rem;
-  color: white;
-  font-weight: 600;
+  color: #fff;
+  font-weight: 700;
 }
 
+/* WIN: solid red with subtle sheen */
 .win-bar {
-  background: linear-gradient(90deg, #10b981, #059669);
+  background:
+    linear-gradient(to right, rgba(255,255,255,.14), rgba(255,255,255,0)),
+    var(--red);
 }
 
+/* TIE: black with slight outline pattern (still only black) */
 .tie-bar {
-  background: linear-gradient(90deg, #f59e0b, #d97706);
+  background:
+    repeating-linear-gradient(45deg, #000 0 8px, #000 8px 14px);
+  box-shadow: inset 0 0 0 1px #1a1a1a;
+  color: var(--text);
 }
 
+/* LOSE: darker red gradient to contrast from WIN */
 .lose-bar {
-  background: linear-gradient(90deg, #ef4444, #dc2626);
+  background:
+    linear-gradient(to right, #7A0A1B, #C8102E);
 }
 
+/* ================================
+   RESPONSIVE
+   ================================ */
 @media (max-width: 640px) {
-  h1 {
-    font-size: 2rem;
-  }
-  
-  .cards-display {
-    gap: 1rem;
-  }
-  
+  h1 { font-size: 2rem; }
+
+  .cards-display { gap: 1rem; }
+
   .card {
     width: 120px;
     height: 170px;
   }
-  
-  .card-center {
-    font-size: 3rem;
-  }
-  
-  .control-grid {
-    grid-template-columns: 1fr;
-  }
+
+  .card-center { font-size: 34px; }
+
+  .control-grid { grid-template-columns: 1fr; }
 }
