@@ -1,3 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@600;700;800&display=swap');
+.card-suit, .card-center { font-family: "IM Fell English SC", serif; }
+
+/* --- CARD FRAME: Bicycle-like proportions, border, corners --- */
+.card {
+  /* 2.5" x 3.5" aspect ≈ 1 : 1.4 */
+  width: 140px;
+  height: 196px;
+  background: #fff;
+  border: 2px solid #111;
+  border-radius: 12px;
+  box-shadow:
+    0 2px 6px rgba(0,0,0,0.25),
+    0 1px 0 rgba(255,255,255,0.6) inset;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 8px;
+  /* subtle paper texture */
+  background-image:
+    radial-gradient(100% 60% at 50% 40%, rgba(0,0,0,0.025), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0 0 0 0.05 0.08 0.1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E");
+  background-blend-mode: multiply, normal;
+}
+
+/* Corner index blocks (top-left & bottom-right) */
+.card-corner {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+.card-corner.top-left {
+  top: 6px;
+  left: 7px;
+}
+
+.card-corner.bottom-right {
+  bottom: 6px;
+  right: 7px;
+  transform: rotate(180deg); /* classic mirrored index */
+}
+
+/* Rank (A,K,Q,J,10…) — tall, high-contrast serif */
+.card-value {
+  font-family: "Roboto Slab", Georgia, serif;
+  font-weight: 700;
+  font-size: 30px;       /* tweak per your card size */
+  line-height: 1;
+  margin-bottom: 2px;
+  /* color comes inline from your React (suitColors) */
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Suit glyph in the index block */
+.card-suit {
+  font-family: "Roboto Slab", Georgia, serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1;
+  margin-top: 1px;
+  /* color comes inline from your React (suitColors) */
+}
+
+/* Center pip — slightly smaller than many mockups to feel authentic */
+.card-center {
+  font-family: "Roboto Slab", Georgia, serif;
+  font-weight: 700;
+  font-size: 40px;       /* adjust if you prefer larger */
+  line-height: 1;
+  /* color comes inline from your React (suitColors) */
+}
+
+/* Optional: make red closer to Bicycle's deep red */
+:root {
+  --bicycle-red: #C8102E;  /* feel free to use this instead of your current red */
+}
+
+/* If you want to switch your red globally without changing JSX:
+   .card .card-value, .card .card-suit, .card .card-center { color: var(--bicycle-red); }
+   But you're already setting color inline based on suit — which is great.
+*/
+
 html, body, #root { height: 100%; }
 body {
   margin: 0;

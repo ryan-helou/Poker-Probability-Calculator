@@ -39,9 +39,9 @@ export default function App() {
 
   const suitColors = {
     Spades: "#000",
-    Hearts: "#e63946",
+    Hearts: "#C8102E",
     Clubs: "#000",
-    Diamonds: "#e63946",
+    Diamonds: "#C8102E",
   };
 
   const getDisplayValue = (val) => {
@@ -102,7 +102,7 @@ export default function App() {
   return (
     <>
       <div className="container">
-        <h1>♠ Poker Odds Calculator ♥</h1>
+        <h1>♠ Poker Probability Calculator ♥</h1>
 
         <div className="cards-display">
           <Card value={value1} suit={suit1} />
