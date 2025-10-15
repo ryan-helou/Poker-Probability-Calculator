@@ -1,18 +1,4 @@
-/* ================================
-   FONTS
-   ================================ */
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@600;700;800&display=swap');
-
-/* Optional alternate vibe for suits/center:
-   Uncomment if you want a slight old-style flair
-   (then also change .card-value/.card-suit/.card-center families below)
-*/
-/* @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap'); */
-
-
-/* ================================
-   THEME TOKENS
-   ================================ */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700;800&display=swap');
 :root {
   --red:   #C8102E;  /* Bicycle-like deep red */
   --black: #0A0A0A;  /* App black */
@@ -45,6 +31,7 @@ body {
    HEADINGS
    ================================ */
 h1 {
+  font-family:"Roboto Slab", Georgia, serif;
   text-align: center;
   color: var(--red);
   font-size: 3rem;
@@ -192,6 +179,7 @@ h2 {
 }
 
 label {
+  font-family:"Roboto Slab", Georgia, serif;
   font-weight: 700;
   margin-bottom: 0.5rem;
   color: var(--red);
@@ -200,10 +188,12 @@ label {
 
 select,
 input {
+  font-family:"Roboto Slab", Georgia, serif;
+  font-weight: 100;
   padding: 0.75rem;
   border: 2px solid #1a1a1a;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 0.98rem;
   transition: border-color 0.2s, box-shadow 0.2s;
   background: #0f0f0f;
   color: var(--text);
@@ -220,6 +210,8 @@ input:focus {
    BUTTON (red only)
    ================================ */
 .calc-button {
+  font-family:"Roboto Slab", Georgia, serif;
+  font-weight: 800;
   width: 100%;
   padding: 1rem;
   background: linear-gradient(180deg, #E01C35, var(--red));
@@ -326,23 +318,20 @@ input:focus {
 
 /* WIN: solid red with subtle sheen */
 .win-bar {
-  background:
-    linear-gradient(to right, rgba(255,255,255,.14), rgba(255,255,255,0)),
-    var(--red);
+  background: linear-gradient(90deg, #10b981, #059669);
 }
 
-/* TIE: black with slight outline pattern (still only black) */
 .tie-bar {
-  background:
-    repeating-linear-gradient(45deg, #000 0 8px, #000 8px 14px);
-  box-shadow: inset 0 0 0 1px #1a1a1a;
-  color: var(--text);
+  background: linear-gradient(90deg, #f59e0b, #d97706);
 }
 
-/* LOSE: darker red gradient to contrast from WIN */
 .lose-bar {
-  background:
-    linear-gradient(to right, #7A0A1B, #C8102E);
+  background: linear-gradient(90deg, #ef4444, #dc2626);
+}
+.result-value {
+  font-size: 1.2rem;
+  color: inherit; /* was var(--red); remove that so your inline color works */
+  font-weight: 700;
 }
 
 /* ================================
