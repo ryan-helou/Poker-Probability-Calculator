@@ -1,3 +1,4 @@
+package com.poker.engine;
 
 public class OddsResult {
 
