@@ -111,7 +111,12 @@ export default function Iridescence({
     }
     animateId = requestAnimationFrame(update);
     ctn.appendChild(gl.canvas);
-
+    gl.canvas.style.position = "fixed";
+    gl.canvas.style.inset = "0";
+    gl.canvas.style.width = "100vw";
+    gl.canvas.style.height = "100vh";
+    gl.canvas.style.zIndex = "0";
+    gl.canvas.style.pointerEvents = "none";
     function handleMouseMove(e) {
       const rect = ctn.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width;
