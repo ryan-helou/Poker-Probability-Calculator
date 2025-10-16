@@ -38,31 +38,6 @@ Built with a **sleek glassmorphism interface**, animated **Iridescent shader bac
 
 ---
 
-## 🎨 Design Highlights
-- **Animated Background:** `Iridescence.jsx` renders a live, color-shifting pattern with mouse interaction  
-- **Card Styling:** Custom vector-like cards with realistic ranks, suits, and hover animations  
-- **Responsive Layout:** Scales beautifully across devices, from desktop to mobile  
-
----
-
-## 🧩 Folder Structure
-```
-src/
- ├── App.jsx            # Main UI & logic
- ├── App.css            # Styling for layout, cards, controls, results
- ├── Iridescence.jsx    # WebGL shader animation background
- ├── Iridescence.css    # Canvas positioning and layering
- ├── main.jsx           # React entry point
- └── index.css          # Base styles and resets
-```
-
----
-
 ## ✅ License
 MIT — use, modify, and distribute freely.  
 If you like it, consider leaving a ⭐ on GitHub!
-
----
-
-## 🙌 Acknowledgments
-Inspired by casino-style interfaces, Monte Carlo simulations, and the React creative coding community.
