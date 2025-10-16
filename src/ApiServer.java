@@ -15,8 +15,8 @@ import java.util.Map;
 public class ApiServer {
 
     public static void main(String[] args) throws Exception {
-        int port = 8080;
-        HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
+        String portEnv = System.getenv("PORT");
+        int port = (portEnv != null) ? Integer.parseInt(portEnv) : 8080;        HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
 
         // GET /api/odds?value1=12&suit1=Spades&value2=14&suit2=Clubs&players=4&iterations=50000
         server.createContext("/api/odds", new OddsHandler());
@@ -94,8 +94,7 @@ public class ApiServer {
         private static void sendJson(HttpExchange exchange, int status, String body) throws IOException {
             byte[] bytes = body.getBytes(StandardCharsets.UTF_8);
             exchange.getResponseHeaders().add("Content-Type", "application/json; charset=utf-8");
-            exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "http://localhost:5173"); // allow Vite in dev
-            exchange.sendResponseHeaders(status, bytes.length);
+            exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");            exchange.sendResponseHeaders(status, bytes.length);
             try (OutputStream os = exchange.getResponseBody()) {
                 os.write(bytes);
             }
