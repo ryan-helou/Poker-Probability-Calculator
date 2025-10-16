@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./App.css";
-import Silk from "./silk";
+import Iridescence from "./Iridescence";
 
 export default function App() {
   const [value1, setValue1] = useState(14);
@@ -151,6 +151,15 @@ export default function App() {
 
   return (
     <>
+      {/* Background */}
+      <div className="Iridescence-bg">
+        <Iridescence
+          color={[1, 1, 1]}
+          mouseReact={false}
+          amplitude={0.1}
+          speed={1.0}
+        />
+      </div>
       <div className="container">
         <h1>♠ Poker Probability Calculator ♥</h1>
         <div className="cards-display">
