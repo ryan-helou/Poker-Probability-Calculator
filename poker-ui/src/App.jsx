@@ -152,7 +152,7 @@ export default function App() {
   return (
     <>
       <Iridescence
-        color={[0.7, 0, 0]}
+        color={[0.6, 0, 0]}
         amplitude={0.3}
         speed={0.5}
         mouseReact
