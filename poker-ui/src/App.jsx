@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./App.css";
+import Silk from "./silk";
 
 export default function App() {
   const [value1, setValue1] = useState(14);
@@ -49,10 +50,40 @@ export default function App() {
     return found ? found.display : val;
   };
 
+  const validateInputs = () => {
+    if (value1 === value2 && suit1 === suit2) {
+      return "You can't pick the exact same card twice.";
+    }
+    if (players < 2 || players > 9) {
+      return "Number of players must be between 2 and 9.";
+    }
+    if (iterations < 1000) {
+      return "Iterations must be at least 1,000.";
+    }
+    return null;
+  };
+
   const calc = async () => {
     setLoading(true);
     setError(null);
     setResult(null);
+
+    const v = validateInputs();
+    if (v) {
+      setLoading(false);
+      setError(v);
+      return;
+    }
+
+    const statusMessages = {
+      400: "Invalid input. Please check your selections and try again.",
+      404: "Service not found. Is the API route correct?",
+      422: "Invalid input. Please correct the fields and try again.",
+      429: "Too many requests. Please wait a moment and retry.",
+      500: "Server error while calculating odds. Please try again in a moment.",
+      503: "Service unavailable. Please try again shortly.",
+    };
+
     try {
       const params = new URLSearchParams({
         value1: String(value1),
@@ -62,12 +93,31 @@ export default function App() {
         players: String(players),
         iterations: String(iterations),
       });
+
       const res = await fetch(`/api/odds?${params.toString()}`);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+      if (!res.ok) {
+        const ct = res.headers.get("content-type") || "";
+        let serverMsg = "";
+        if (ct.includes("application/json")) {
+          const data = await res.json().catch(() => null);
+          serverMsg = data?.error || data?.message || "";
+        } else {
+          serverMsg = await res.text().catch(() => "");
+        }
+        const fallback =
+          statusMessages[res.status] || `Unexpected error (${res.status}).`;
+        throw new Error(serverMsg.trim() || fallback);
+      }
+
       const data = await res.json();
       setResult(data);
     } catch (e) {
-      setError(e.message ?? "Request failed");
+      const msg = String(e?.message || "").replace(/^TypeError:\s*/i, "");
+      const friendly = msg.includes("Failed to fetch")
+        ? "Network error. Check your connection and try again."
+        : msg || "Something went wrong. Please try again.";
+      setError(friendly);
     } finally {
       setLoading(false);
     }
@@ -103,7 +153,6 @@ export default function App() {
     <>
       <div className="container">
         <h1>♠ Poker Probability Calculator ♥</h1>
-
         <div className="cards-display">
           <Card value={value1} suit={suit1} />
           <Card value={value2} suit={suit2} />
@@ -169,6 +218,7 @@ export default function App() {
                 max={9}
                 value={players}
                 onChange={(e) => setPlayers(+e.target.value)}
+                onFocus={(e) => e.target.select()}
               />
             </div>
 
