@@ -151,157 +151,154 @@ export default function App() {
 
   return (
     <>
-      {/* Background */}
-      <div className="Iridescence-bg">
-        <Iridescence
-          color={[1, 1, 1]}
-          mouseReact={false}
-          amplitude={0.1}
-          speed={1.0}
-        />
-      </div>
-      <div className="container">
-        <h1>♠ Poker Probability Calculator ♥</h1>
-        <div className="cards-display">
-          <Card value={value1} suit={suit1} />
-          <Card value={value2} suit={suit2} />
-        </div>
-
-        <div className="controls">
-          <div className="control-grid">
-            <div className="control-group">
-              <label>First Card Value</label>
-              <select
-                value={value1}
-                onChange={(e) => setValue1(+e.target.value)}
-              >
-                {values.map((v) => (
-                  <option key={v.val} value={v.val}>
-                    {v.display}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="control-group">
-              <label>First Card Suit</label>
-              <select value={suit1} onChange={(e) => setSuit1(e.target.value)}>
-                {suits.map((s) => (
-                  <option key={s} value={s}>
-                    {suitSymbols[s]} {s}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="control-group">
-              <label>Second Card Value</label>
-              <select
-                value={value2}
-                onChange={(e) => setValue2(+e.target.value)}
-              >
-                {values.map((v) => (
-                  <option key={v.val} value={v.val}>
-                    {v.display}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="control-group">
-              <label>Second Card Suit</label>
-              <select value={suit2} onChange={(e) => setSuit2(e.target.value)}>
-                {suits.map((s) => (
-                  <option key={s} value={s}>
-                    {suitSymbols[s]} {s}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="control-group">
-              <label>Number of Players (2-9)</label>
-              <input
-                type="number"
-                min={2}
-                max={9}
-                value={players}
-                onChange={(e) => setPlayers(+e.target.value)}
-                onFocus={(e) => e.target.select()}
-              />
-            </div>
-
-            <div className="control-group">
-              <label>Simulation Iterations</label>
-              <input
-                type="number"
-                min={1000}
-                step={1000}
-                value={iterations}
-                onChange={(e) => setIterations(+e.target.value)}
-              />
-            </div>
+      <Iridescence color={[0.2, 0.6, 1]} amplitude={0.3} speed={0.5} mouseReact>
+        <div className="container">
+          z<h1>♠ Poker Probability Calculator ♥</h1>
+          <div className="cards-display">
+            <Card value={value1} suit={suit1} />
+            <Card value={value2} suit={suit2} />
           </div>
-
-          <button className="calc-button" onClick={calc} disabled={loading}>
-            {loading ? "Calculating..." : "Calculate Odds"}
-          </button>
-
-          {error && <div className="error">{error}</div>}
-        </div>
-
-        {result && (
-          <div className="results">
-            <h2>Your Odds</h2>
-            <div className="result-bars">
-              <div className="result-item">
-                <div className="result-header">
-                  <span className="result-label">Win</span>
-                  <span className="result-value" style={{ color: "#10b981" }}>
-                    {Number(result.win).toFixed(2)}%
-                  </span>
-                </div>
-                <div className="result-bar-bg">
-                  <div
-                    className="result-bar-fill win-bar"
-                    style={{ width: `${result.win}%` }}
-                  />
-                </div>
+          <div className="controls">
+            <div className="control-grid">
+              <div className="control-group">
+                <label>First Card Value</label>
+                <select
+                  value={value1}
+                  onChange={(e) => setValue1(+e.target.value)}
+                >
+                  {values.map((v) => (
+                    <option key={v.val} value={v.val}>
+                      {v.display}
+                    </option>
+                  ))}
+                </select>
               </div>
 
-              <div className="result-item">
-                <div className="result-header">
-                  <span className="result-label">Tie</span>
-                  <span className="result-value" style={{ color: "#f59e0b" }}>
-                    {Number(result.tie).toFixed(2)}%
-                  </span>
-                </div>
-                <div className="result-bar-bg">
-                  <div
-                    className="result-bar-fill tie-bar"
-                    style={{ width: `${result.tie}%` }}
-                  />
-                </div>
+              <div className="control-group">
+                <label>First Card Suit</label>
+                <select
+                  value={suit1}
+                  onChange={(e) => setSuit1(e.target.value)}
+                >
+                  {suits.map((s) => (
+                    <option key={s} value={s}>
+                      {suitSymbols[s]} {s}
+                    </option>
+                  ))}
+                </select>
               </div>
 
-              <div className="result-item">
-                <div className="result-header">
-                  <span className="result-label">Lose</span>
-                  <span className="result-value" style={{ color: "#ef4444" }}>
-                    {Number(result.lose).toFixed(2)}%
-                  </span>
+              <div className="control-group">
+                <label>Second Card Value</label>
+                <select
+                  value={value2}
+                  onChange={(e) => setValue2(+e.target.value)}
+                >
+                  {values.map((v) => (
+                    <option key={v.val} value={v.val}>
+                      {v.display}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="control-group">
+                <label>Second Card Suit</label>
+                <select
+                  value={suit2}
+                  onChange={(e) => setSuit2(e.target.value)}
+                >
+                  {suits.map((s) => (
+                    <option key={s} value={s}>
+                      {suitSymbols[s]} {s}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="control-group">
+                <label>Number of Players (2-9)</label>
+                <input
+                  type="number"
+                  min={2}
+                  max={9}
+                  value={players}
+                  onChange={(e) => setPlayers(+e.target.value)}
+                  onFocus={(e) => e.target.select()}
+                />
+              </div>
+
+              <div className="control-group">
+                <label>Simulation Iterations</label>
+                <input
+                  type="number"
+                  min={1000}
+                  step={1000}
+                  value={iterations}
+                  onChange={(e) => setIterations(+e.target.value)}
+                />
+              </div>
+            </div>
+
+            <button className="calc-button" onClick={calc} disabled={loading}>
+              {loading ? "Calculating..." : "Calculate Odds"}
+            </button>
+
+            {error && <div className="error">{error}</div>}
+          </div>
+          {result && (
+            <div className="results">
+              <h2>Your Odds</h2>
+              <div className="result-bars">
+                <div className="result-item">
+                  <div className="result-header">
+                    <span className="result-label">Win</span>
+                    <span className="result-value" style={{ color: "#10b981" }}>
+                      {Number(result.win).toFixed(2)}%
+                    </span>
+                  </div>
+                  <div className="result-bar-bg">
+                    <div
+                      className="result-bar-fill win-bar"
+                      style={{ width: `${result.win}%` }}
+                    />
+                  </div>
                 </div>
-                <div className="result-bar-bg">
-                  <div
-                    className="result-bar-fill lose-bar"
-                    style={{ width: `${result.lose}%` }}
-                  />
+
+                <div className="result-item">
+                  <div className="result-header">
+                    <span className="result-label">Tie</span>
+                    <span className="result-value" style={{ color: "#f59e0b" }}>
+                      {Number(result.tie).toFixed(2)}%
+                    </span>
+                  </div>
+                  <div className="result-bar-bg">
+                    <div
+                      className="result-bar-fill tie-bar"
+                      style={{ width: `${result.tie}%` }}
+                    />
+                  </div>
+                </div>
+
+                <div className="result-item">
+                  <div className="result-header">
+                    <span className="result-label">Lose</span>
+                    <span className="result-value" style={{ color: "#ef4444" }}>
+                      {Number(result.lose).toFixed(2)}%
+                    </span>
+                  </div>
+                  <div className="result-bar-bg">
+                    <div
+                      className="result-bar-fill lose-bar"
+                      style={{ width: `${result.lose}%` }}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      </Iridescence>
     </>
   );
 }
