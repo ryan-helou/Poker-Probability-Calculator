@@ -3,8 +3,7 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/Poker-Probability-Calculator/', // IMPORTANT
-  build: { outDir: 'docs' },     
+  base: '/Poker-Probability-Calculator/',
   server: {
     proxy: {
       '/api': 'http://localhost:8080'
