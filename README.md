@@ -1,33 +1,43 @@
-# Poker Probability Calculator
+🔗 **Live Demo:** [https://ryan-helou.github.io/Poker-Probability-Calculator/](https://ryan-helou.github.io/Poker-Probability-Calculator/)
 
-Poker Probability Calculator is a Java program designed to calculate the probability of winning a hand in poker, focusing on Texas Hold'em. It evaluates the winning hand based on player cards and community cards, simulating multiple rounds to determine the likelihood of success.
+# ♠ Poker Probability Calculator ♥  
 
-## Description
+A visually rich and interactive **React web app** that simulates poker hands to calculate win, tie, and loss probabilities.  
+Built with a **sleek glassmorphism interface**, animated **Iridescent shader background**, and realistic **card rendering** — this app makes probability simulation feel like a casino-grade experience. 🎲
 
-This project offers a comprehensive Java implementation of a poker probability calculator. It includes functionalities to simulate Texas Hold'em rounds, deal cards, evaluate hands, and determine the winner. The program utilizes Java's standard libraries for randomization and user interface.
+---
 
-## Features
+## 🚀 Features
+- 🎴 Choose any **two hole cards** (value & suit)
+- 👥 Adjust **number of players** (2–9)
+- 🧮 Run **Monte Carlo simulations** (configurable iterations)
+- 📊 Visual **win / tie / lose** bars with percentage display
+- ⚡ Handles API responses and **error messages gracefully**
+- 💫 Dynamic animated background using **WebGL (OGL.js)**
+- 🪞 Sleek **glassmorphism** and red-black poker-themed design
 
-- **Texas Hold'em Simulation**: Simulate rounds of Texas Hold'em with a specified number of players.
-- **Hand Evaluation**: Evaluate the best possible hand for each player based on their cards and community cards.
-- **Probability Calculation**: Calculate the probability of winning a hand based on the number of iterations and provided cards.
-- **Interactive Console Interface**: User-friendly console interface for input and output, making it easy to interact with the program.
+---
 
-## Installation
+## 🧠 Tech Stack
+- **React** (Hooks: `useState`, `useEffect`)
+- **Vite** — fast development and optimized builds
+- **OGL.js** — custom WebGL shader animation background (`Iridescence.jsx`)
+- **Vanilla CSS** — responsive layout, gradients, blur, transitions
+- **Fetch API** — connects to `/api/odds` endpoint for real-time probability computation
 
-To run the Poker Probability Calculator, follow these steps:
+---
 
-1. Clone or download the repository to your local machine.
-2. Compile the Java files using your preferred Java compiler.
-3. Run the `Main` class to start the program.
-4. Follow the on-screen instructions to specify the number of players and any additional parameters.
+## 🃏 How It Works
+1. Select your **two hole cards**.
+2. Choose the **number of opponents** and **simulation count**.
+3. Hit **Calculate Odds**.
+4. The app calls `/api/odds` with your parameters and displays:
+   - ✅ Win probability (green)
+   - 🤝 Tie probability (yellow)
+   - ❌ Lose probability (red)
 
-## Usage
+---
 
-- Specify the number of players for the Texas Hold'em simulation.
-- Input any additional parameters, such as specific cards, if desired.
-- Review the output to see the probability of winning the hand based on the provided inputs.
-
-## Credits
-
-This project was developed by Ryan Helou.
+## ✅ License
+MIT — use, modify, and distribute freely.  
+If you like it, consider leaving a ⭐ on GitHub!
