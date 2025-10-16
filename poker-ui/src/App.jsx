@@ -153,9 +153,9 @@ export default function App() {
     <>
       <Iridescence
         color={[0.6, 0, 0]}
-        amplitude={0.3}
-        speed={0.5}
-        mouseReact
+        amplitude={1}
+        speed={0.4}
+        mouseReact={true}
       ></Iridescence>
       <div className="container">
         <h1>♠ Poker Probability Calculator ♥</h1>
