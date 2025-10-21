@@ -94,8 +94,9 @@ export default function App() {
         iterations: String(iterations),
       });
 
-      const res = await fetch(`/api/odds?${params.toString()}`);
-
+      const res = await fetch(
+        `http://localhost:8080/api/odds?${params.toString()}`
+      );
       if (!res.ok) {
         const ct = res.headers.get("content-type") || "";
         let serverMsg = "";
