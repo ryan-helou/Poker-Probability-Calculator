@@ -116,7 +116,7 @@ export default function App() {
     } catch (e) {
       const msg = String(e?.message || "").replace(/^TypeError:\s*/i, "");
       const friendly = msg.includes("Failed to fetch")
-        ? "Network error. Check your connection and try again."
+        ? "Network error.Check your connection and try again."
         : msg || "Something went wrong. Please try again.";
       setError(friendly);
     } finally {
