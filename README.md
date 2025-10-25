@@ -37,7 +37,4 @@ Built with a **sleek glassmorphism interface**, animated **Iridescent shader bac
    - ❌ Lose probability (red)
 
 ---
-
-## ✅ License
-MIT — use, modify, and distribute freely.  
-If you like it, consider leaving a ⭐ on GitHub!
+Built by Ryan Helou
