@@ -1,40 +1,17 @@
-🔗 **Live Demo:** [https://ryan-helou.github.io/Poker-Probability-Calculator/](https://ryan-helou.github.io/Poker-Probability-Calculator/)
+# Poker Probability Calculator
 
-# ♠ Poker Probability Calculator ♥  
+*A Texas Hold'em odds calculator: give it your two hole cards and a table size, and it runs a Monte Carlo simulation to report how often you win, tie, or lose.*
 
-A visually rich and interactive **React web app** that simulates poker hands to calculate win, tie, and loss probabilities.  
-Built with a **sleek glassmorphism interface**, animated **Iridescent shader background**, and realistic **card rendering** — this app makes probability simulation feel like a casino-grade experience. 🎲
+Nothing here is solved in closed form. Each request pins your two cards as "player one" and then plays out whole hands. Every iteration builds a fresh 52-card deck, removes your two cards, deals two random hole cards to each of the other seats (the table holds 2 to 9), and turns over a random five-card board. It scores your best hand against the best hand at the table and records a win, a tie, or a loss. The reported percentages are just those tallies over the iteration count, which the UI defaults to 50,000 and floors at 1,000.
 
----
+There is no board input — every runout is dealt fresh — so what comes back is preflop equity for a starting hand against N random holdings, not the odds on a specific flop.
 
-## 🚀 Features
-- 🎴 Choose any **two hole cards** (value & suit)
-- 👥 Adjust **number of players** (2–9)
-- 🧮 Run **Monte Carlo simulations** (configurable iterations)
-- 📊 Visual **win / tie / lose** bars with percentage display
-- ⚡ Handles API responses and **error messages gracefully**
-- 💫 Dynamic animated background using **WebGL (OGL.js)**
-- 🪞 Sleek **glassmorphism** and red-black poker-themed design
+## Scoring a hand
 
----
+Each player ends up with seven cards (two hole plus five board), so the evaluator enumerates all 21 ways to choose five of them. The C(7,5) index patterns are written out as a hardcoded 21×5 table rather than generated at runtime. Every five-card combo is sorted by rank and run down a ladder of boolean classifiers — straight flush, four of a kind, full house, flush, straight, trips, two pair, pair, high card. The matching category produces a single `double` score assembled from powers of ten: the category picks the magnitude band, from 10^28 for a straight flush down to 10^4 for high card in steps of three orders of magnitude, and the ranked kickers fill the lower decimal places. One numeric comparison then settles both hand class and kickers, and the highest of the 21 combos is the player's hand.
 
-## 🧠 Tech Stack
-- **React** (Hooks: `useState`, `useEffect`)
-- **Vite** — fast development and optimized builds
-- **OGL.js** — custom WebGL shader animation background (`Iridescence.jsx`)
-- **Vanilla CSS** — responsive layout, gradients, blur, transitions
-- **Fetch API** — connects to `/api/odds` endpoint for real-time probability computation
+It is brute force by design. A 50,000-iteration run at a full nine-handed table scores on the order of ten million five-card hands, which the JVM clears in well under a second.
 
----
+## Stack
 
-## 🃏 How It Works
-1. Select your **two hole cards**.
-2. Choose the **number of opponents** and **simulation count**.
-3. Hit **Calculate Odds**.
-4. The app calls `/api/odds` with your parameters and displays:
-   - ✅ Win probability (green)
-   - 🤝 Tie probability (yellow)
-   - ❌ Lose probability (red)
-
----
-Built by Ryan Helou
+A Spring Boot 3.3.4 / Java 17 service exposes one endpoint, `GET /api/odds`, which takes the two card values and suits, the player count, and the iteration count, and returns `{win, tie, lose}`. The front end is a React + Vite single page — card pickers, animated win/tie/lose bars, and an OGL WebGL iridescence shader behind it all — deployed to GitHub Pages at [ryan-helou.github.io/Poker-Probability-Calculator](https://ryan-helou.github.io/Poker-Probability-Calculator/) and calling the Java API on localhost:8080.
