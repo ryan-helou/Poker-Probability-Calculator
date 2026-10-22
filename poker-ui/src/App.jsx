@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import Iridescence from "./Iridescence";
+import { simulateOdds } from "./odds";
 
 export default function App() {
   const [value1, setValue1] = useState(14);
@@ -75,43 +76,10 @@ export default function App() {
       return;
     }
 
-    const statusMessages = {
-      400: "Invalid input. Please check your selections and try again.",
-      404: "Service not found. Is the API route correct?",
-      422: "Invalid input. Please correct the fields and try again.",
-      429: "Too many requests. Please wait a moment and retry.",
-      500: "Server error while calculating odds. Please try again in a moment.",
-      503: "Service unavailable. Please try again shortly.",
-    };
-
     try {
-      const params = new URLSearchParams({
-        value1: String(value1),
-        suit1,
-        value2: String(value2),
-        suit2,
-        players: String(players),
-        iterations: String(iterations),
-      });
-
-      const res = await fetch(
-        `http://localhost:8080/api/odds?${params.toString()}`
-      );
-      if (!res.ok) {
-        const ct = res.headers.get("content-type") || "";
-        let serverMsg = "";
-        if (ct.includes("application/json")) {
-          const data = await res.json().catch(() => null);
-          serverMsg = data?.error || data?.message || "";
-        } else {
-          serverMsg = await res.text().catch(() => "");
-        }
-        const fallback =
-          statusMessages[res.status] || `Unexpected error (${res.status}).`;
-        throw new Error(serverMsg.trim() || fallback);
-      }
-
-      const data = await res.json();
+      // Runs in the browser, so the hosted page works with no backend.
+      await new Promise((resolve) => setTimeout(resolve, 30)); // let "Calculating..." paint first
+      const data = simulateOdds({ value1, suit1, value2, suit2, players, iterations });
       setResult(data);
     } catch (e) {
       const msg = String(e?.message || "").replace(/^TypeError:\s*/i, "");
