@@ -14,7 +14,7 @@
 
 Pick your two cards and how many players are at the table, and the calculator plays out tens of thousands of random hands to see how yours does. It then shows the share of hands you would win, tie, or lose. This method (simulating many random games and counting the results) is called a Monte Carlo simulation.
 
-It answers one question: how strong is this starting hand before any shared cards are dealt? It does not take the cards on the table into account. It is a small project for anyone curious about poker odds.
+It answers one question: how strong is this starting hand before any shared cards are dealt? It does not take the cards on the table into account. It's made for anyone curious about poker odds.
 
 ## What you can do with it
 
