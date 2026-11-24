@@ -6,6 +6,8 @@
 
 <a href="https://poker-probability-calculator-two.vercel.app"><img alt="Open poker-probability-calculator-two.vercel.app" src="https://img.shields.io/badge/Open-poker--probability--calculator--two.vercel.app-24292f?style=for-the-badge"></a>
 
+<!-- facts --><img alt="Runs in: your browser" src="https://img.shields.io/badge/Runs_in-your_browser-24292f?style=for-the-badge"> <img alt="Players: 2 to 9" src="https://img.shields.io/badge/Players-2_to_9-24292f?style=for-the-badge"> <img alt="Default run: 50,000 hands" src="https://img.shields.io/badge/Default_run-50,000_hands-24292f?style=for-the-badge">
+
 </div>
 
 <br>
